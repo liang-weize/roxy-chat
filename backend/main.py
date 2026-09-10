@@ -392,7 +392,7 @@ async def _call_llm_stream(messages: list, temperature: float = 0.8):
 
 async def _translate_for_voice(text: str) -> str:
     """把中文回复转为适合朗读的自然日语，并规范标点与换行。"""
-    if not VOICE_CFG.get("japanese_voice", False):
+    if not VOICE_CFG.get("enabled", False) or not VOICE_CFG.get("japanese_voice", False):
         return text
     translate_prompt = """你是日语本地化编辑。请把下面的中文台词翻译成自然、口语化、符合洛琪希温和沉稳说话风格的日语。
 只输出日语台词本身，不要解释，不要加引号，不要输出思考过程。
@@ -572,7 +572,7 @@ def _rate_allowed(key: str, limit: int = 30, window: float = 300.0) -> bool:
 async def health():
     return {
         "status": "ok",
-        "llm_configured": not str(LLM_CFG.get("api_key", "")).startswith("sk-请"),
+        "llm_configured": _llm_configured(),
         "voice_online": await _voice_alive(),
         "voice_enabled": bool(VOICE_CFG.get("enabled", False)),
     }
@@ -644,8 +644,18 @@ async def backgrounds():
     return {"backgrounds": items}
 
 
+def _llm_configured() -> bool:
+    key = str(LLM_CFG.get("api_key", "") or "").strip()
+    base = str(LLM_CFG.get("base_url", "") or "").strip()
+    model = str(LLM_CFG.get("model", "") or "").strip()
+    return bool(key and not key.startswith("sk-请") and base and model
+                and "your-provider.example" not in base and model != "your-model-name")
+
+
 @app.post("/api/chat")
 async def chat(req: ChatRequest):
+    if not _llm_configured():
+        return JSONResponse({"error": "请填写 config.yaml 的接口地址、模型名，并设置 ROXY_LLM_API_KEY"}, status_code=503)
     text = (req.message or "").strip()
     if not text:
         return JSONResponse({"error": "消息不能为空"}, status_code=400)
@@ -696,6 +706,8 @@ def _sse(payload: dict) -> str:
 @app.post("/api/chat/stream")
 async def chat_stream(req: ChatRequest):
     """流式版对话：逐字返回洛琪希回复，结束后带上翻译好的日语语音文本。"""
+    if not _llm_configured():
+        return JSONResponse({"error": "请填写 config.yaml 的接口地址、模型名，并设置 ROXY_LLM_API_KEY"}, status_code=503)
     text = (req.message or "").strip()
     if not text:
         return JSONResponse({"error": "消息不能为空"}, status_code=400)
@@ -781,6 +793,18 @@ async def tts(req: TTSRequest):
 
 
 # ---------------------------------------------------------------- 静态页面
+
+@app.get("/assets/images/portrait_roxy.jpg")
+async def portrait():
+    custom = ROOT / "assets" / "images" / "portrait_roxy.jpg"
+    return FileResponse(custom if custom.is_file() else ROOT / "assets" / "defaults" / "placeholder.svg")
+
+
+@app.get("/assets/images/favicon.png")
+async def favicon():
+    custom = ROOT / "assets" / "images" / "favicon.png"
+    return FileResponse(custom if custom.is_file() else ROOT / "assets" / "defaults" / "placeholder.svg")
+
 
 app.mount("/assets", StaticFiles(directory=ROOT / "assets"), name="assets")
 

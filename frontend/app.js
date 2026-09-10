@@ -456,7 +456,7 @@ async function checkHealth() {
     const textEl = statusEl.querySelector(".status-text");
     if (!data.llm_configured) {
       cls("bad");
-      textEl.textContent = "请配置 ROXY_LLM_API_KEY";
+      textEl.textContent = "请配置接口地址、模型和 ROXY_LLM_API_KEY";
     } else if (data.voice_enabled && data.voice_online) {
       cls("ok");
       textEl.textContent = "洛琪希在线 · 语音就绪";

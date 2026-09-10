@@ -6,6 +6,7 @@ config.yaml
 
 # Python environments and caches
 .venv/
+.venv-web/
 __pycache__/
 *.py[cod]
 
@@ -18,9 +19,8 @@ voice-engine/
 voice-models/
 tunnel/
 
-# Media without confirmed redistribution rights
-assets/backup_videos/
-assets/voice/
-assets/images/bg/
-assets/images/portrait_roxy.jpg
-assets/images/favicon.png
+# Local media; only project-authored defaults and instructions are published
+assets/**
+!assets/README.md
+!assets/defaults/
+!assets/defaults/*.svg

@@ -1,4 +1,4 @@
 @echo off
 setlocal
-cd /d "%~dp0"
-call "%~dp0Æô¶¯Âåç÷Ï£.bat"
+call "%~dp0run_website.bat" %*
+exit /b %errorlevel%

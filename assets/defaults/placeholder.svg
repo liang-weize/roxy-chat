@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="640" viewBox="0 0 480 640" role="img" aria-label="Blue water crystal placeholder">
+  <defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#edf7ff"/><stop offset="1" stop-color="#b9d9f5"/></linearGradient></defs>
+  <rect width="480" height="640" rx="32" fill="url(#bg)"/>
+  <circle cx="240" cy="285" r="140" fill="none" stroke="#ffffff" stroke-width="2"/>
+  <path d="M240 132 326 285 240 406 154 285Z" fill="#5c96cc"/>
+  <path d="M240 132V406L154 285Z" fill="#8abbe5"/>
+  <path d="M154 285H326L240 406Z" fill="#407db4" opacity=".55"/>
+  <circle cx="130" cy="142" r="5" fill="#fff"/><circle cx="355" cy="386" r="7" fill="#fff"/>
+  <text x="240" y="500" text-anchor="middle" font-family="sans-serif" font-size="26" fill="#315a80">ROXY CHAT</text>
+</svg>
