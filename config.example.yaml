@@ -1,0 +1,35 @@
+# Copy this file to config.yaml, then adjust it for your local machine.
+# Never commit config.yaml or any real password/API key.
+
+llm:
+  base_url: "https://your-provider.example/v1"
+  api_key: ""
+  model: "your-model-name"
+  temperature: 0.8
+  max_history: 20
+
+access:
+  enabled: false
+  password: ""
+
+voice:
+  enabled: false
+  api_base: "http://127.0.0.1:9880"
+  ref_audio_path: "assets/voice/your-reference.wav"
+  prompt_text: ""
+  custom_gpt_model: "voice-models/your-model.ckpt"
+  custom_sovits_model: "voice-models/your-model.pth"
+  japanese_voice: true
+  prompt_lang: "ja"
+  text_lang: "ja"
+  speed: 1.0
+  fragment_interval: 0.12
+  text_split_method: "cut5"
+  top_k: 20
+  top_p: 0.85
+  tts_temperature: 0.75
+  repetition_penalty: 1.28
+
+server:
+  host: "127.0.0.1"
+  port: 8321

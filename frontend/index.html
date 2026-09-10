@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>洛琪希 · Migurdia</title>
+  <link rel="stylesheet" href="style.css?v=20260903-bgimg" />
+  <link rel="icon" href="/assets/images/favicon.png" />
+</head>
+<body>
+  <!-- 动态视频/图片背景 -->
+  <video id="bgVideo" class="bg-video" autoplay muted loop playsinline></video>
+  <img id="bgImage" class="bg-image" alt="" hidden />
+  <div class="bg-overlay" aria-hidden="true"></div>
+
+  <main class="app">
+    <section class="nameplate">
+      <h1>洛琪希·米格路迪亚</h1>
+      <p>水王级魔术师 · 静寂的洛琪希</p>
+      <div id="status" class="status checking" role="status" aria-live="polite">
+        <span class="dot"></span><span class="status-text">连接中…</span>
+      </div>
+    </section>
+
+    <div class="main-row">
+      <aside class="stage">
+        <div class="portrait-wrap" id="portraitWrap">
+          <div class="portrait-gaze" id="portraitGaze">
+            <img id="portrait" class="portrait" src="/assets/images/portrait_roxy.jpg" alt="洛琪希" />
+          </div>
+          <div id="moodBubble" class="mood-bubble" hidden></div>
+          <div id="sparkleLayer" class="sparkle-layer"></div>
+        </div>
+        <div class="mood-bar">
+          <span id="moodEmoji" class="mood-emoji">😌</span>
+          <span id="moodText" class="mood-text">心情平静</span>
+        </div>
+      </aside>
+
+      <section class="chat-card">
+      <header class="chat-header">
+        <div class="chat-title-block">
+          <h2>与洛琪希对话</h2>
+          <p class="sub">随便聊聊吧，她是很有耐心的老师</p>
+        </div>
+        <div class="header-actions">
+          <button id="bgToggle" class="voice-toggle bg-toggle" type="button" aria-label="切换背景">🎬 <span>背景</span></button>
+          <button id="voiceToggle" class="voice-toggle muted" type="button" aria-label="开启语音">🔇 <span>语音关</span></button>
+          <button id="clearBtn" class="voice-toggle clear-toggle" type="button" aria-label="清空对话">🗑 <span>清空</span></button>
+          <button id="logoutBtn" class="voice-toggle logout-toggle" type="button" aria-label="退出登录">↪ <span>退出</span></button>
+        </div>
+      </header>
+
+      <div id="messages" class="messages" role="log" aria-live="polite" aria-label="聊天消息"></div>
+
+      <button id="backToBottom" class="back-to-bottom" type="button" aria-label="回到底部" hidden>↓ 回到底部</button>
+
+      <footer class="input-bar">
+        <label class="sr-only" for="input">输入消息</label>
+        <textarea id="input" maxlength="1000" rows="1"
+                  placeholder="对洛琪希说点什么…（Enter 发送，Shift+Enter 换行）"
+                  autocomplete="off"></textarea>
+        <div class="emoji-wrap">
+          <button id="emojiToggle" class="emoji-toggle" type="button" title="添加表情" aria-label="添加表情">☺</button>
+          <div id="emojiPanel" class="emoji-panel" hidden>
+            <div class="emoji-tabs" role="tablist">
+              <button class="emoji-tab active" data-emoji-category="faces" type="button">😊 表情</button>
+              <button class="emoji-tab" data-emoji-category="gestures" type="button">👍 手势</button>
+              <button class="emoji-tab" data-emoji-category="hearts" type="button">💙 心情</button>
+              <button class="emoji-tab" data-emoji-category="magic" type="button">✨ 魔法</button>
+              <button class="emoji-tab" data-emoji-category="nature" type="button">🌊 自然</button>
+              <button class="emoji-tab" data-emoji-category="objects" type="button">🎁 物品</button>
+            </div>
+            <div id="emojiGrid" class="emoji-grid"></div>
+          </div>
+        </div>
+        <button id="send" type="button">发送</button>
+      </footer>
+      </section>
+    </div>
+  </main>
+
+  <div id="toast" class="toast"></div>
+
+  <!-- 登录遮罩（开启访问控制时显示） -->
+  <div id="loginScreen" class="login-screen" hidden>
+    <form id="loginForm" class="login-card" autocomplete="off">
+      <h2>洛琪希的小屋</h2>
+      <p class="login-sub">这是朋友之间的小天地，请输入口令进入</p>
+      <input id="loginPassword" type="password" placeholder="访问口令" autocomplete="current-password" />
+      <button type="submit">进入</button>
+      <p id="loginError" class="login-error" role="alert"></p>
+    </form>
+  </div>
+
+  <script src="app.js?v=20260903-voice"></script>
+</body>
+</html>

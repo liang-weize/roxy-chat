@@ -1,0 +1,26 @@
+# Local secrets and machine-specific configuration
+config.yaml
+.env
+.env.*
+!.env.example
+
+# Python environments and caches
+.venv/
+__pycache__/
+*.py[cod]
+
+# Local runtime data
+data/
+*.log
+
+# Downloaded engines, models, and binaries
+voice-engine/
+voice-models/
+tunnel/
+
+# Media without confirmed redistribution rights
+assets/backup_videos/
+assets/voice/
+assets/images/bg/
+assets/images/portrait_roxy.jpg
+assets/images/favicon.png
